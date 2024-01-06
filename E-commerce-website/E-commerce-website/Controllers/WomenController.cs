@@ -3,10 +3,10 @@
 namespace E_commerce_website.Controllers
 {
     [Route("[controller]")]
-    public class HomeController : Controller
+    public class WomenController : Controller
     {
-        [HttpGet(Name = "Home")]
-        public IActionResult Index()
+        [HttpGet(Name = "Women")]
+        public IActionResult Women()
         {
             return View();
         }
