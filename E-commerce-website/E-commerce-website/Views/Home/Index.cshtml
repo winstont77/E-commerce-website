@@ -3,5 +3,32 @@
 @{
 }
 
+
+<div style="position:absolute; left:0">
+    <img src="~/image/background.png" style="width:100vw" />
+</div>
+<div>
+    <ul>
+        <li></li>
+    </ul>
+</div>
 <h1>Welcome to the MVC Home</h1>
 <a class="nav-link text-dark" asp-area="" asp-controller="Women" asp-action="Women">Privacy</a>
+
+@section scripts{
+    <script>
+        const app = {
+            data() {
+                return {
+                }
+            },
+            mounted() {
+                console.log("HI")
+            },
+            methods: {
+                
+            }
+        }
+        Vue.createApp(app).mount('#app');
+    </script>
+}
