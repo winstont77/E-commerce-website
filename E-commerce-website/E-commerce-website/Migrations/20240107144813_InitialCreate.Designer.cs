@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommercewebsite.Migrations
 {
     [DbContext(typeof(DbTable))]
-    [Migration("20240107051432_InitialCreate")]
+    [Migration("20240107144813_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -39,6 +39,29 @@ namespace Ecommercewebsite.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("E_commerce_website.Models.DatabaseEntity.CartContent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Variant")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CartContent");
                 });
 
             modelBuilder.Entity("E_commerce_website.Models.DatabaseEntity.Order", b =>

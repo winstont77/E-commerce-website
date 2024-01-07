@@ -38,6 +38,29 @@ namespace Ecommercewebsite.Migrations
                     b.ToTable("Carts");
                 });
 
+            modelBuilder.Entity("E_commerce_website.Models.DatabaseEntity.CartContent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Variant")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CartContent");
+                });
+
             modelBuilder.Entity("E_commerce_website.Models.DatabaseEntity.Order", b =>
                 {
                     b.Property<int>("Id")

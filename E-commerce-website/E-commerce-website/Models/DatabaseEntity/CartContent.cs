@@ -2,6 +2,7 @@
 {
     public class CartContent
     {
+        public int Id { get; set; }
         //對應購物車Id
         public int CartId { get; set; }
 

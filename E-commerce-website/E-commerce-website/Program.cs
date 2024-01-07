@@ -1,4 +1,6 @@
 using E_commerce_website.Database;
+using E_commerce_website.Repositories.UserRepository;
+using E_commerce_website.Services.UserService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DbTable>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectionString")));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
