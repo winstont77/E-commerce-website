@@ -15,7 +15,7 @@
         public string Description { get; set; }
 
         //產品價格
-        public string Price { get; set; }
+        public int Price { get; set; }
 
         //產品質地
         public string Texture { get; set; }

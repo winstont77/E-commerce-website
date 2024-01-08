@@ -4,6 +4,6 @@ namespace E_commerce_website.Services.UserService
 {
     public interface IUserService
     {
-        public User Login(string userName, string userPassword);
+        public string Login(string userName, string userPassword);
     }
 }

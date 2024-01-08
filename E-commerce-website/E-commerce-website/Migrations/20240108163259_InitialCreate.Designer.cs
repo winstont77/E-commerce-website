@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommercewebsite.Migrations
 {
     [DbContext(typeof(DbTable))]
-    [Migration("20240107144813_InitialCreate")]
+    [Migration("20240108163259_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -108,9 +108,8 @@ namespace Ecommercewebsite.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<string>("Size")
                         .IsRequired()
