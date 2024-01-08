@@ -1,5 +1,5 @@
 ﻿@page
-@model E_commerce_website.Views.Profile.ProfileModel
+@model E_commerce_website.Views.Profile.LoginModel
 @{
 }
 
@@ -8,10 +8,10 @@
         <h1 style="margin:auto">Login</h1>
     </div>
     <div style="display:flex;margin-bottom: 20px;">
-        <input style="margin:auto" placeholder="UserName" v-model="Name"/>
+        <input style="margin:auto" placeholder="UserName" v-model="Name" />
     </div>
     <div style="display:flex;margin-bottom: 20px;">
-        <input style="margin:auto" placeholder="UserPassword" v-model="Password"/>
+        <input style="margin:auto" placeholder="UserPassword" v-model="Password" />
     </div>
     <div style="display:flex;margin-bottom: 20px;">
         <button style="margin:auto" v-on:click="login">
@@ -30,31 +30,31 @@
         const app = {
             data() {
                 return {
-                    Name:"",
-                    Password:""
+                    Name: "",
+                    Password: ""
                 }
             },
             mounted() {
-                //要先經過驗證才可以留在Profile，否則導向Login
-                window.location.href = "https://localhost:7033/Profile/Login"
+
+                console.log('HI')
             },
             methods: {
-                login(){
+                login() {
                     var self = this;
                     axios.post('https://localhost:7033/Api/Home/Login',
-                        { 
+                        {
                             "Name": self.Name,
                             "Password": self.Password
                         })
-                    .then(
-                        res => {
+                        .then(
+                            res => {
                                 console.log(res.data)
                                 window.location.href = "https://localhost:7033/Home"
-                        }
-                    )
+                            }
+                        )
                 },
 
-                Signup(){
+                Signup() {
                     var self = this;
                     window.location.href = "https://localhost:7033/Signup"
                 }

@@ -1,6 +1,4 @@
-﻿using E_commerce_website.Database;
-using E_commerce_website.Models.DatabaseEntity;
-using E_commerce_website.Repositories.UserRepository;
+﻿using E_commerce_website.Models.DatabaseEntity;
 using E_commerce_website.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,12 +13,16 @@ namespace E_commerce_website.Controllers.Api
             _userService = userService;
         }
 
-        [HttpPost(Name = "GetOneUser")]
-        public User GetOneUser(string userName)
+        [HttpPost("Login")]
+        public User Login([FromBody]UserLogin userLogin)
         {
-            return _userService.GetOneUser(userName);
-            //return _dbTable.Users.Where(i => i.Name == userName).First();
-            //return new User { Id = 1, Name = userName, Email = "winsotn@gmail.com", Password = "123"};
+            return _userService.Login(userLogin.Name, userLogin.Password);
+        }
+
+        public class UserLogin
+        {
+            public string Name { get; set; }
+            public string Password { get; set; }
         }
     }
 }

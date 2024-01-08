@@ -13,11 +13,10 @@ namespace E_commerce_website.Services.UserService
             _userRepository = userRepository;
         }
 
-        public User GetOneUser(string userName)
+        public User Login(string userName, string userPassword)
         {
             var result = _userRepository.Read();
-            return result.Where(i=>i.Name==userName).First();
-            //return new User { Id = 1, Name = userName, Email = "winsotn@gmail.com", Password = "123" };
+            return result.Where(i=>i.Name==userName&&i.Password==userPassword).First();
         }
     }
 }

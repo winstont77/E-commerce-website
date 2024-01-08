@@ -7,10 +7,7 @@ namespace E_commerce_website.Repositories.UserRepository
     {
         private readonly DbTable _dbTable;
 
-        public UserRepository
-        (
-            DbTable dbTable
-        )
+        public UserRepository(DbTable dbTable)
         {   
             _dbTable = dbTable;
         }

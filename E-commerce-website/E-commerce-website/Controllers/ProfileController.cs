@@ -5,8 +5,14 @@ namespace E_commerce_website.Controllers
     [Route("[controller]")]
     public class ProfileController : Controller
     {
-        [HttpGet(Name = "Profile")]
+        [HttpGet("Profile")]
         public IActionResult Profile()
+        {
+            return View();
+        }
+
+        [HttpGet("Login")]
+        public IActionResult Login()
         {
             return View();
         }
