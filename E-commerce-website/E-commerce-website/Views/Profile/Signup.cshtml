@@ -1,11 +1,11 @@
 ﻿@page
-@model E_commerce_website.Views.Profile.LoginModel
+@model E_commerce_website.Views.Profile.SignupModel
 @{
 }
 
 <div>
     <div style="display:flex;margin-bottom: 20px;">
-        <h1 style="margin:auto">Login</h1>
+        <h1 style="margin:auto">Signup</h1>
     </div>
     <div style="display:flex;margin-bottom: 20px;">
         <input style="margin:auto" placeholder="UserName" v-model="Name" />
@@ -14,13 +14,16 @@
         <input style="margin:auto" placeholder="UserPassword" v-model="Password" />
     </div>
     <div style="display:flex;margin-bottom: 20px;">
-        <button style="margin:auto" v-on:click="login">
-            Login
+        <input style="margin:auto" placeholder="UserEmail" v-model="Email" />
+    </div>
+    <div style="display:flex;margin-bottom: 20px;">
+        <button style="margin:auto" v-on:click="signup">
+            Signup
         </button>
     </div>
     <div style="display:flex">
-        <button style="margin:auto" v-on:click="signup">
-            GO to Signup
+        <button style="margin:auto" v-on:click="login">
+            Go to Login
         </button>
     </div>
 </div>
@@ -31,36 +34,38 @@
             data() {
                 return {
                     Name: "",
-                    Password: ""
+                    Password: "",
+                    Email:""
                 }
             },
             mounted() {
-
-                console.log('HI')
             },
             methods: {
                 login() {
                     var self = this;
-                    axios.post('https://localhost:7033/Api/Profile/Login',
+                    window.location.href = "https://localhost:7033/Profile/Login"
+                },
+
+                signup() {
+                    var self = this;
+                    axios.post('https://localhost:7033/Api/Profile/Signup',
                         {
+                            "Id":0,
                             "Name": self.Name,
-                            "Password": self.Password
+                            "Password": self.Password,
+                            "Email":self.Email
                         })
                         .then(
                             res => {
                                 console.log(res.data)
-                                if(res.data.jwt!==""){
-                                    window.location.href = "https://localhost:7033/Home"
+                                if (res.data.jwt !== "") {
+                                    console.log(res.data)
+                                    //window.location.href = "https://localhost:7033/Home"
                                 }else{
                                     console.log(res.data)
                                 }
                             }
                         )
-                },
-
-                signup() {
-                    var self = this;
-                    window.location.href = "https://localhost:7033/Profile/Signup"
                 }
             }
         }

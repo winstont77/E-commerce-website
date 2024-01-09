@@ -13,9 +13,14 @@ namespace E_commerce_website.Repositories.UserRepository
         }
         public List<User> Read()
         {
-            UserRepository userRepository = new UserRepository ( _dbTable );
             IEnumerable<User> result = _dbTable.Users;
             return result.ToList();
+        }
+
+        public void Create(User user)
+        {
+            _dbTable.Users.Add(user);
+            _dbTable.SaveChanges();
         }
     }
 }

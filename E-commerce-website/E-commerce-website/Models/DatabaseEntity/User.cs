@@ -1,8 +1,11 @@
-﻿namespace E_commerce_website.Models.DatabaseEntity
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace E_commerce_website.Models.DatabaseEntity
 {
     public class User
     {
         //使用者編號
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         //使用者名稱

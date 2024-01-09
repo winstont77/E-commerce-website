@@ -16,5 +16,11 @@ namespace E_commerce_website.Controllers
         {
             return View();
         }
+
+        [HttpGet("Signup")]
+        public IActionResult Signup()
+        {
+            return View();
+        }
     }
 }

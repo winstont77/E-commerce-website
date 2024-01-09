@@ -1,22 +1,18 @@
-﻿using E_commerce_website.Database;
-using E_commerce_website.Models.DatabaseEntity;
+﻿using E_commerce_website.Models.DatabaseEntity;
 using E_commerce_website.Repositories.UserRepository;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace E_commerce_website.Services.UserService
+namespace E_commerce_website.Services.ProfileService
 {
-    public class UserService : IUserService
+    public class ProfileService : IProfileService
     {
         private IUserRepository _userRepository;
         private IConfiguration _configuration;
 
-        public UserService(
-            IUserRepository userRepository,
-            IConfiguration configuration)
+        public ProfileService(IUserRepository userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _configuration = configuration;
