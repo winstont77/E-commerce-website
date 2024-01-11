@@ -50,9 +50,13 @@
                             res => {
                                 console.log(res.data)
                                 if(res.data.jwt!==""){
+                                    localStorage.setItem("jwt", res.data.jwt)
+                                    localStorage.setItem("userName", self.Name)
+                                    alert("登入成功")
                                     window.location.href = "https://localhost:7033/Home"
                                 }else{
                                     console.log(res.data)
+                                    alert("登入失敗")
                                 }
                             }
                         )

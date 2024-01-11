@@ -17,14 +17,17 @@ namespace E_commerce_website.Repositories.CartRepository
             _cartRepository = cartRepostory;
             _dbTable = dbTable;
         }
-        public void CreateCart(Cart cart)
+
+        public List<Cart> Read()
         {
-            _dbTable.Carts.Add( cart );
+            IEnumerable<Cart> result = _dbTable.Carts;
+            return result.ToList();
         }
 
-        public IQueryable<Cart> GetCart(User user)
+        public void Create(Cart cart)
         {
-            throw new NotImplementedException();
+            _dbTable.Carts.Add(cart);
+            _dbTable.SaveChanges();
         }
     }
 }

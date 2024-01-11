@@ -60,9 +60,11 @@
                                 console.log(res.data)
                                 if (res.data.jwt !== "") {
                                     console.log(res.data)
-                                    //window.location.href = "https://localhost:7033/Home"
+                                    alert("註冊成功")
+                                    window.location.href = "https://localhost:7033/Profile/Login"
                                 }else{
                                     console.log(res.data)
+                                    alert("註冊失敗")
                                 }
                             }
                         )

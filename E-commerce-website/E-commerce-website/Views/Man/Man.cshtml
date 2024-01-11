@@ -7,3 +7,27 @@
     <div></div>
     <div></div>
 </div>
+
+@section scripts{
+    <script>
+        const app = {
+            data() {
+                return {
+                    products: {}
+                }
+            },
+            mounted() {
+                var self = this;
+                axios.get('https://localhost:7033/Api/Home/GetAllCategoryProducts')
+                    .then(
+                        res => {
+                            self.products = res.data
+                        }
+                    )
+            },
+            methods: {
+            }
+        }
+        Vue.createApp(app).mount('#app');
+    </script>
+}

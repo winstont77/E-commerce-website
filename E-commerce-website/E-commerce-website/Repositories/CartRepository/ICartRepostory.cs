@@ -4,7 +4,7 @@ namespace E_commerce_website.Repositories.CartRepositoy
 {
     public interface ICartRepostory
     {
-        public void CreateCart(Cart cart);
-        public IQueryable<Cart> GetCart(User user);
+        public List<Cart> Read();
+        public void Create(Cart cart);
     }
 }

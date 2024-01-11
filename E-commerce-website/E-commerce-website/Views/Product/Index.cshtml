@@ -1,0 +1,57 @@
+﻿@page
+@model E_commerce_website.Views.Product.IndexModel
+@{
+}
+
+<div style="display:flex">
+    <div style="width:50%">
+        <img v-bind:src="'https://localhost:7033/'+products.image" style="width:360px"/>
+    </div>
+    <div style="width:50%">
+        <div>{{products.title}}</div>
+        <div>TWD {{products.price}}</div>
+        <buttton style="background-color:black;color:white">加入購物車</buttton>
+        <div>實品顏色依單品為主</div>
+        <div>
+            <label>清洗:</label>
+            {{products.wash}}
+        </div>
+        <div>
+            <label>產地:</label>
+            {{products.place}}
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        const app = {
+            data() {
+                return {
+                    products: {}
+                }
+            },
+            mounted() {
+                var self = this;
+                axios.get('https://localhost:7033/Api/Home/GetAllCategoryProducts')
+                    .then(
+                        res => {
+                            res.data.forEach(item=>{
+                                if (localStorage.getItem("title") == item.title){
+                                    self.products = item
+                                }
+                            })
+                            console.log(self.products.image)
+                        }
+                    )
+            },
+            methods: {
+                product(title) {
+                    localStorage.setItem("title", title);
+                    window.location.href = "https://localhost:7033/Profile/Profile"
+                }
+            }
+        }
+        Vue.createApp(app).mount('#app');
+    </script>
+}

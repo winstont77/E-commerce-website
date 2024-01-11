@@ -49,6 +49,31 @@ namespace E_commerce_website.Services.ProfileService
             }
         }
 
+        public User Detail(string userName)
+        {
+            return _userRepository.Read().Where(i=>i.Name==userName).First();
+        }
+
+        public User Edit(User user)
+        {
+            return _userRepository.Update(user);
+        }
+
+        public string Delete(User user)
+        {
+            var check = _userRepository
+                .Read().Where(i => i.Name == user.Name).FirstOrDefault();
+            if (check != default)
+            {
+                _userRepository.Delete(user);
+                return "帳號刪除成功";
+            }
+            else
+            {
+                return "帳號刪除失敗";
+            }
+        }
+
         private string GenerateToken(string UserName)
         {
             var securityKey =

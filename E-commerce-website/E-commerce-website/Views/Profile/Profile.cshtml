@@ -4,25 +4,15 @@
 }
 
 <div>
-    <div style="display:flex;margin-bottom: 20px;">
-        <h1 style="margin:auto">Login</h1>
-    </div>
-    <div style="display:flex;margin-bottom: 20px;">
-        <input style="margin:auto" placeholder="UserName" v-model="Name"/>
-    </div>
-    <div style="display:flex;margin-bottom: 20px;">
-        <input style="margin:auto" placeholder="UserPassword" v-model="Password"/>
-    </div>
-    <div style="display:flex;margin-bottom: 20px;">
-        <button style="margin:auto" v-on:click="login">
-            Login
-        </button>
-    </div>
-    <div style="display:flex">
-        <button style="margin:auto" v-on:click="Signup">
-            Signup
-        </button>
-    </div>
+    <div v-show="display">{{user.name}}</div>
+    <div v-show="display">{{user.password}}</div>
+    <div v-show="display">{{user.email}}</div>
+    <div v-show="display"><button v-on:click="edit">edit</button><button v-on:click="deleteUser">刪除帳號</button></div>
+    <div v-show="!display"><input v-model="user.name" /></div>
+    <div v-show="!display"><input v-model="user.password" /></div>
+    <div v-show="!display"><input v-model="user.email" /></div>
+    <div v-show="!display"><button v-on:click="check">確認</button></div>
+    <div><button v-on:click="signout">登出</button></div>
 </div>
 
 @section scripts{
@@ -30,33 +20,87 @@
         const app = {
             data() {
                 return {
-                    Name:"",
-                    Password:""
+                    user:{},
+                    display:true
                 }
             },
             mounted() {
                 //要先經過驗證才可以留在Profile，否則導向Login
-                window.location.href = "https://localhost:7033/Profile/Login"
+                if(localStorage.getItem("jwt")){
+                    var self = this;
+                    var jwt = localStorage.getItem("jwt")
+                    var userName = localStorage.getItem("userName")
+                    axios.get(`https://localhost:7033/Api/Profile/Detail?userName=${userName}`,
+                        {
+                            headers: { Authorization: `Bearer ${jwt}` }
+                        })
+                        .then(
+                            res => {
+                                console.log(res.data)
+                                self.user = res.data
+                            }
+                        )
+                }else{
+                    window.location.href = "https://localhost:7033/Profile/Login"
+                }
             },
             methods: {
-                login(){
+                edit(){
                     var self = this;
-                    axios.post('https://localhost:7033/Api/Home/Login',
-                        { 
-                            "Name": self.Name,
-                            "Password": self.Password
-                        })
+                    self.display = !self.display
+                },
+                check(){
+                    var self = this;
+                    var jwt = localStorage.getItem("jwt")
+                    axios.post('https://localhost:7033/Api/Profile/Edit',
+                        {
+                            "id":self.user.id,
+                            "name":self.user.name,
+                            "password":self.user.password,
+                            "email":self.user.email
+                        },
+                        {
+                            headers: { Authorization: `Bearer ${jwt}` }
+                        }
+                        )
+                        .then(
+                            res => {
+                                console.log(res.data)
+                                self.user = res.data
+                                alert("變更成功")
+                                self.display = !self.display
+                            }
+                        )
+                },
+                deleteUser(){
+                    var self = this;
+                    var jwt = localStorage.getItem("jwt")
+                    axios.post('https://localhost:7033/Api/Profile/Delete',
+                        {
+                            "id": self.user.id,
+                            "name": self.user.name,
+                            "password": self.user.password,
+                            "email": self.user.email
+                        },
+                        {
+                            headers: { Authorization: `Bearer ${jwt}` }
+                        }
+                        )
                     .then(
                         res => {
-                                console.log(res.data)
-                                window.location.href = "https://localhost:7033/Home"
+                            console.log(res.data)
+                            alert(res.data)
+                            localStorage.clear()
+                            window.location.href = "https://localhost:7033/Home"
                         }
                     )
                 },
 
-                Signup(){
+                signout(){
                     var self = this;
-                    window.location.href = "https://localhost:7033/Signup"
+                    localStorage.clear()
+                    alert("登出成功")
+                    window.location.href = "https://localhost:7033/Home"
                 }
             }
         }

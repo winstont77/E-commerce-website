@@ -1,5 +1,6 @@
 ﻿using E_commerce_website.Models.DatabaseEntity;
 using E_commerce_website.Services.ProfileService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_commerce_website.Controllers.Api
@@ -24,6 +25,27 @@ namespace E_commerce_website.Controllers.Api
         public ResponseData Signup([FromBody] User user)
         {
             return new ResponseData() { Jwt = _profileService.Signup(user) };
+        }
+
+        [Authorize]
+        [HttpGet("Detail")]
+        public User Detail(string userName)
+        {
+            return _profileService.Detail(userName);
+        }
+
+        [Authorize]
+        [HttpPost("Edit")]
+        public User Edit([FromBody] User user)
+        {
+            return _profileService.Edit(user);
+        }
+
+        [Authorize]
+        [HttpPost("Delete")]
+        public string Delete([FromBody] User user)
+        {
+            return _profileService.Delete(user);
         }
         public class UserLogin
         {
