@@ -8,27 +8,41 @@
     <img src="~/image/background.png" style="width:100vw" />
 </div>*@
 <div>
-    <ul>
-        <li>
-            <img style="width:360px; height:316px" src="~/ProductImage/BiKhimHsiao.jpg"/>
+    <ul style="display:flex; flex-wrap:wrap; width:100%">
+        <li v-for="item in products" style="margin:5px; list-style-type: none">
+            @*{{item.image}}*@
+            <div v-on:click="product(item.title)">
+                <img style="width:360px; height:400px" v-bind:src="item.image" />
+                <div style="width:25px; height:25px; margin:5px"></div>
+                <div>{{item.title}}</div>
+                <div>TWD {{item.price}}</div>
+            </div>
         </li>
     </ul>
 </div>
-<h1>Welcome to the MVC Home</h1>
-<a class="nav-link text-dark" asp-area="" asp-controller="Women" asp-action="Women">Privacy</a>
 
 @section scripts{
     <script>
         const app = {
             data() {
                 return {
+                    products:{}
                 }
             },
             mounted() {
-                console.log("HI")
+                var self = this;
+                axios.get('https://localhost:7033/Api/Home/GetAllCategoryProducts')
+                    .then(
+                        res => {
+                            self.products = res.data
+                        }
+                    )
             },
             methods: {
-                
+                product(title) {
+                    localStorage.setItem("title", title);
+                    window.location.href = "https://localhost:7033/Profile/Profile"
+                }
             }
         }
         Vue.createApp(app).mount('#app');

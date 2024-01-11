@@ -1,7 +1,8 @@
 using E_commerce_website.Database;
+using E_commerce_website.Repositories.ProductRepository;
 using E_commerce_website.Repositories.UserRepository;
+using E_commerce_website.Services.HomeService;
 using E_commerce_website.Services.ProfileService;
-using E_commerce_website.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +16,9 @@ builder.Services.AddDbContext<DbTable>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectionString")));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
 
 builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_commerce_website.Controllers.Api
 {
-    [Route("/Api/[controller]")]
+    [Route("Api/[controller]")]
     public class ProfileController
     {
         private IProfileService _profileService;
